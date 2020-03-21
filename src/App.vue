@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-      <Todos />
+    <div class="container">
+			<Todos />
+		</div>
   </div>
 </template>
 
@@ -16,7 +18,7 @@ export default {
 
 <style>
 body {
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-family: "Franklin Gothic Medium", Arial, sans-serif;
   line-height: 1.6;
   background: #e8f7f0;
 }
