@@ -13,10 +13,9 @@ const getters = {
 const actions = {
 
 	async fetchTodos({ commit }) {
-		const response = await axios.get('https://jsonplaceholder.typicode.com/todos', {
-			headers: {
-			"Content-type": "application/json; charset=UTF-8"
-		}});
+	
+		
+		const response = await axios.get('https://jsonplaceholder.typicode.com/todos');
 
 		//added this commit: response.data is the same as todos in the mutation setTodos
 		commit('setTodos', response.data);			
@@ -25,20 +24,19 @@ const actions = {
 	//new additions: response pass with the value title and completed as false
 
 	async addTodo({ commit }, title) {
-		const response = await axios.post('https://jsonplaceholder.typicode.com/todos', { title, completed: false}, {
-			headers: {
-			"Content-type": "application/json; charset=UTF-8"
-		}});
+
+		
+
+		const response = await axios.post('https://jsonplaceholder.typicode.com/todos', { title, completed: false} );
 		// the commit includes the new todo as passed in the response
 		commit('newTodo', response.data);
 
 	},
 
 	async deleteTodo({ commit }, id) {
-		await axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`, {
-			headers: {
-			"Content-type": "application/json; charset=UTF-8"
-		}});
+
+		
+		await axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`);
 		
 		commit('removeTodo', id)
 	},
@@ -48,21 +46,18 @@ const actions = {
 		// Get selected number
 		const limit = parseInt(e.target.options[e.target.options.selectedIndex].innerText);
 		//console.log(limit);
-		const response = await axios.get(`https://jsonplaceholder.typicode.com/todos?_limit=${limit}`, {
-			headers: {
-			"Content-type": "application/json; charset=UTF-8"
-		}});
+
+		
+		
+		const response = await axios.get(`https://jsonplaceholder.typicode.com/todos?_limit=${limit}`);
 
 		commit('setTodos', response.data);
 	},
 
 	async updateTodo ({ commit }, updTodo ) {
 		//axios.put for updating something
-	
-		const response = await axios.put(`https://jsonplaceholder.typicode.com/todos/${updTodo.id}`, updTodo, {
-			headers: {
-			"Content-type": "application/json; charset=UTF-8"
-		}});
+		
+		const response = await axios.put(`https://jsonplaceholder.typicode.com/todos/${updTodo.id}`, updTodo);
 		
 		console.log(response.data);
 
