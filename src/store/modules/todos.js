@@ -15,7 +15,11 @@ const actions = {
 	async fetchTodos({ commit }) {
 	
 		
-		const response = await axios.get('https://jsonplaceholder.typicode.com/todos');
+		const response = await axios.get('https://jsonplaceholder.typicode.com/todos',{
+			headers: {
+				'Access-Control-Allow-Origin': '*',
+				'Content-Type': 'application/json',
+			}});
 
 		//added this commit: response.data is the same as todos in the mutation setTodos
 		commit('setTodos', response.data);			
@@ -27,7 +31,11 @@ const actions = {
 
 		
 
-		const response = await axios.post('https://jsonplaceholder.typicode.com/todos', { title, completed: false} );
+		const response = await axios.post('https://jsonplaceholder.typicode.com/todos', { title, completed: false} ,{
+			headers: {
+				'Access-Control-Allow-Origin': '*',
+				'Content-Type': 'application/json',
+			}});
 		// the commit includes the new todo as passed in the response
 		commit('newTodo', response.data);
 
@@ -36,7 +44,11 @@ const actions = {
 	async deleteTodo({ commit }, id) {
 
 		
-		await axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`);
+		await axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`,{
+			headers: {
+				'Access-Control-Allow-Origin': '*',
+				'Content-Type': 'application/json',
+			}});
 		
 		commit('removeTodo', id)
 	},
@@ -49,7 +61,11 @@ const actions = {
 
 		
 		
-		const response = await axios.get(`https://jsonplaceholder.typicode.com/todos?_limit=${limit}`);
+		const response = await axios.get(`https://jsonplaceholder.typicode.com/todos?_limit=${limit}`,{
+			headers: {
+				'Access-Control-Allow-Origin': '*',
+				'Content-Type': 'application/json',
+			}});
 
 		commit('setTodos', response.data);
 	},
@@ -57,7 +73,11 @@ const actions = {
 	async updateTodo ({ commit }, updTodo ) {
 		//axios.put for updating something
 		
-		const response = await axios.put(`https://jsonplaceholder.typicode.com/todos/${updTodo.id}`, updTodo);
+		const response = await axios.put(`https://jsonplaceholder.typicode.com/todos/${updTodo.id}`, updTodo,{
+			headers: {
+				'Access-Control-Allow-Origin': '*',
+				'Content-Type': 'application/json',
+			}});
 		
 		console.log(response.data);
 
@@ -72,7 +92,7 @@ const mutations = {
 	newTodo: (state, todo) => state.todos.unshift(todo),
 	removeTodo: (state, id) => state.todos = state.todos.filter(todo => todo.id !==id),
 		// if filter conditional passes, return that todo
-	updTodo:(state, updTodo) => { 
+	updateTodo:(state, updTodo) => { 
 		const index = state.todos.findIndex(todo => todo.id === updTodo.id);
 		if (index !== -1) {
 			state.todos.splice(index, 1, updTodo);
