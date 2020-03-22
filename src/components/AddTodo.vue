@@ -26,7 +26,8 @@ export default {
 		onSubmit(e) {
 			e.preventDefault();
 			// this.title is bound to the data() title upthere
-			this.addTodo(this.title);
+            this.addTodo(this.title);
+            this.title='';
 		}
 	}
 }
