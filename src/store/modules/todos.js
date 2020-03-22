@@ -1,17 +1,7 @@
-// eslint-disable-next-line no-unused-vars
 import axios from 'axios';
 
 const state = {
-	todos: [
-		{
-			id:1,
-			title: 'Todo One'
-		},
-		{
-			id:2,
-			title: 'Todo Two'
-		}
-	]
+	todos: []
 };
 
 // returns the state or part of it
@@ -19,9 +9,19 @@ const getters = {
 	allTodos: state => state.todos
 };
 
-const actions = {};
+// commit to call to call the mutation
+const actions = {
+	async fetchTodos({ commit }) {
+		const response = await axios.get('https://jsonplaceholder.typicode.com/todos')
 
-const mutations = {};
+			//added this commit: response.data is the same as todos in the mutation setTodos
+			commit('setTodos', response.data);			
+	}
+};
+
+const mutations = {
+	setTodos: (state, todos) => (state.todos = todos)
+};
 
 // state is the same as state: state, getters: getters
 export default {
